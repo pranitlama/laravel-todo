@@ -20,4 +20,30 @@ class todolistcontroller extends Controller
         // print_r($req->all());
         return redirect('/');
     }
-}
+
+    // public function delete(todolist $todolist,$id){
+   
+    //     $row=$todolist::destroy($id);
+    //         return back();
+    // }
+
+    public function delete($id){
+        $data=todolist::find($id);
+        $data->delete();
+        return redirect('/');
+    }
+
+    public function edit($id){
+        $data=todolist::find($id);
+        return view('edit',['data'=>$data]);
+    }
+
+    public function updateTodo(Request $req){
+
+        $todoObj=todolist::find($req->id);
+        $todoObj->title=$req->todo;
+
+        $todoObj->save();
+        // print_r($req->all());
+        return redirect('/');
+    }}
